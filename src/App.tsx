@@ -5,39 +5,49 @@ import boxes from "./data/Boxes";
 import { useState } from "react";
 import { Box } from "./components/Box";
 import { Square } from "./components/Square";
+import Joke from "./components/Joke";
+import JokesData from "./data/JokesData";
+import FormPrac from "./components/FormPrac";
 
 function App() {
-  const [box, setBoxes] = useState(boxes);
+  // const [box, setBoxes] = useState(boxes);
 
-  function toggle(id: number) {
-    setBoxes((prevBox) => {
-      return prevBox.map((box) => {
-        return box.id === id ? { ...box, on: !box.on } : box;
-      });
-    });
-  }
+  // function toggle(id: number) {
+  //   setBoxes((prevBox) => {
+  //     return prevBox.map((box) => {
+  //       return box.id === id ? { ...box, on: !box.on } : box;
+  //     });
+  //   });
+  // }
 
-  const boxElement = box.map((b) => {
-    return <Box on={b.on} id={b.id} changeColor={toggle} key={b.id} />;
+  // const boxElement = box.map((b) => {
+  //   return <Box on={b.on} id={b.id} changeColor={toggle} key={b.id} />;
+  // });
+
+  // function handleClick(id: number) {
+  //   console.log("Square Clicked", id);
+
+  //   setBoxes((previousBox) => {
+  //     return previousBox.map((currentBox) => {
+  //       return currentBox.id === id
+  //         ? { ...currentBox, on: !currentBox.on }
+  //         : currentBox;
+  //     });
+  //   });
+  // }
+
+  const jokesElement = JokesData.map((jokes, index) => {
+    return <Joke setup={jokes.setup} punchline={jokes.punchline} key={index} />;
   });
-
-  function handleClick(id: number) {
-    console.log("Square Clicked", id);
-
-    setBoxes((previousBox) => {
-      return previousBox.map((currentBox) => {
-        return currentBox.id === id
-          ? { ...currentBox, on: !currentBox.on }
-          : currentBox;
-      });
-    });
-  }
 
   return (
     <>
       {/* <Header />
       <Forms /> */}
-      <div className="m-6 p-6">
+      {/* {jokesElement} */}
+      <FormPrac />
+
+      {/* <div className="m-6 p-6">
         <h1 className="text-lg">Boxes</h1>
         {boxElement}
         <h1>Test</h1>
@@ -53,7 +63,7 @@ function App() {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }
