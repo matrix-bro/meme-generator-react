@@ -8,6 +8,7 @@ import { Square } from "./components/Square";
 import Joke from "./components/Joke";
 import JokesData from "./data/JokesData";
 import FormPrac from "./components/FormPrac";
+import SignUpForm from "./components/SignUpForm";
 
 function App() {
   // const [box, setBoxes] = useState(boxes);
@@ -45,7 +46,8 @@ function App() {
       {/* <Header />
       <Forms /> */}
       {/* {jokesElement} */}
-      <FormPrac />
+      {/* <FormPrac /> */}
+      <SignUpForm />
 
       {/* <div className="m-6 p-6">
         <h1 className="text-lg">Boxes</h1>
