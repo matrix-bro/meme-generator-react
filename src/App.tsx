@@ -2,7 +2,7 @@ import "./App.css";
 import { Forms } from "./components/Forms";
 import { Header } from "./components/Header";
 import boxes from "./data/Boxes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "./components/Box";
 import { Square } from "./components/Square";
 import Joke from "./components/Joke";
@@ -41,13 +41,39 @@ function App() {
     return <Joke setup={jokes.setup} punchline={jokes.punchline} key={index} />;
   });
 
+  // useEffect()
+
+  const [starWarsData, setStarWarsData] = useState({});
+  const [count, setCount] = useState(1);
+
+  console.log("COmponent rendered");
+  useEffect(() => {
+    console.log("Effect Ran");
+    fetch(`https://swapi.dev/api/people/${count}`)
+      .then((res) => res.json())
+      .then((data) => setStarWarsData(data));
+  }, [count]);
+
   return (
     <>
       {/* <Header />
       <Forms /> */}
       {/* {jokesElement} */}
       {/* <FormPrac /> */}
-      <SignUpForm />
+      {/* <SignUpForm /> */}
+
+      {/* useEffec Section */}
+      <div>
+        <h2>The count is {count}</h2>
+        <button
+          className="border p-3 m-2 bg-blue-200"
+          onClick={() => setCount((prevCount) => prevCount + 1)}
+        >
+          Get Next Character
+        </button>
+        <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
+      </div>
+      {/* useEffect End */}
 
       {/* <div className="m-6 p-6">
         <h1 className="text-lg">Boxes</h1>

@@ -3,8 +3,8 @@ import all_memes from "../data/MemesData";
 
 export const Forms = () => {
   const [meme, setMeme] = useState({
-    topText: "React not frontend",
-    bottomText: "React is a frontend",
+    topText: "",
+    bottomText: "",
     randomImage:
       "https://programmerhumor.io/wp-content/uploads/2023/08/programmerhumor-io-frontend-memes-java-memes-8ac2dd859afd129-758x920.jpg",
   });
@@ -16,12 +16,21 @@ export const Forms = () => {
     setMeme((prevMeme) => {
       return {
         ...prevMeme,
-        topText: memesArray[random_no].name,
-        bottomText: memesArray[random_no].name,
         randomImage: memesArray[random_no].url,
       };
     });
   };
+
+  console.log(meme);
+  function handleChange(event: any) {
+    const { name, value } = event.target;
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        [name]: value,
+      };
+    });
+  }
 
   return (
     <div className="pt-8 px-16">
@@ -32,14 +41,16 @@ export const Forms = () => {
             placeholder=""
             className="border-2 w-full h-10 pl-4"
             value={meme.topText}
-            readOnly
+            onChange={handleChange}
+            name="topText"
           />
           <input
             type="text"
             placeholder=""
             className="border-2 w-full ml-4 h-10 pl-4"
             value={meme.bottomText}
-            readOnly
+            onChange={handleChange}
+            name="bottomText"
           />
         </div>
         <p>
@@ -52,8 +63,10 @@ export const Forms = () => {
         </p>
       </div>
 
-      <div className="mt-8 w-full h-h-[800px] flex">
+      <div className="mt-8 w-full h-h-[800px] flex relative">
         <img src={meme.randomImage} alt="Img" className="w-max h-full m-auto" />
+        <h2 className="absolute top-3 font-bold">{meme.topText}</h2>
+        <h2 className="absolute bottom-1/2 font-bold">{meme.bottomText}</h2>
       </div>
     </div>
   );
