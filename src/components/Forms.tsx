@@ -1,27 +1,42 @@
-import { useState } from "react";
-import all_memes from "../data/MemesData";
+import { useEffect, useState } from "react";
+// import all_memes from "../data/MemesData";
 
 export const Forms = () => {
   const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
-    randomImage:
-      "https://programmerhumor.io/wp-content/uploads/2023/08/programmerhumor-io-frontend-memes-java-memes-8ac2dd859afd129-758x920.jpg",
+    randomImage: "https://i.imgflip.com/1bij.jpg",
   });
 
+  const [allMemes, setAllMemes] = useState([
+    {
+      id: "",
+      name: "",
+      url: "",
+      width: 1200,
+      height: 1200,
+      box_count: 2,
+    },
+  ]);
+
+  useEffect(() => {
+    console.log("Use Effect");
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMemes(data.data.memes));
+  }, []);
+
   const handleClick = () => {
-    const memesArray = all_memes.data.memes;
-    const random_no = Math.floor(Math.random() * memesArray.length);
+    const random_no = Math.floor(Math.random() * allMemes.length);
 
     setMeme((prevMeme) => {
       return {
         ...prevMeme,
-        randomImage: memesArray[random_no].url,
+        randomImage: allMemes[random_no].url,
       };
     });
   };
 
-  console.log(meme);
   function handleChange(event: any) {
     const { name, value } = event.target;
     setMeme((prevMeme) => {
